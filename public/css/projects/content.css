@@ -1,80 +1,125 @@
-main {  
-  height: 100vh;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-
 .projects {
+  scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 100px;
+  gap: 5vh;
+  width: 100%;
   padding: 20vh 0;
+  perspective: 1000px;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;           
+  height: 100vh;              
 }
 
-/* --- 2. THE CONSTRUCTION PHASE --- */
 .project-card {
-  scroll-snap-align: center;
-  width: 90%;
-  max-width: 550px;
-  background: rgba(30, 30, 35, 0.6);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(148, 137, 121);
-  border-radius: 1.5vh;
-  padding: 35px;
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
-  
-  /* Initial 'Deconstructed' State */
-  clip-path: inset(0 100% 0 0); 
-  transform: translateY(40px) scale(0.95);
-  transition: opacity 0.8s ease, 
-              clip-path 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
-              transform 1s ease;
+  width: 90%;
+  max-width: 900px;
+  margin: 4vh auto;
+  padding: 3.8vh;
+  backdrop-filter: blur(10px);
+  background: rgba(34, 40, 49, 0.6);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 20px rgba(255, 132, 115, 0.4);
+  border-radius: 1.5vh;
+
+  transition: 
+    transform 0.6s ease,
+    opacity 0.6s ease,
+    clip-path 0.6s cubic-bezier(0.86, 0, 0.07, 1),
+    box-shadow 0.4s ease,
+    border-color 0.6s ease,
+    box-shadow 0.6 ease;
+
+  text-align: center;
+
+  scroll-snap-align: center;
+  transition-duration: 0.8s;
 }
 
-/* Alternate build direction for even cards */
-.project-card:nth-child(even) {
-  clip-path: inset(0 0 0 100%);
-  transform: translateY(40px) scale(0.95) rotate(2deg);
+.project-card.hidden {
+  opacity: 0;
+  clip-path: inset(49% 0 49% 0);
+  transform: translateY(60px) scale(0.95);
 }
 
-/* The 'Built' State */
 .project-card.visible {
   opacity: 1;
   clip-path: inset(0 0 0 0);
-  transform: translateY(0) scale(1) rotate(0deg);
+  transform: translateY(0) scale(1);
+  box-shadow: 0 10px 20px rgba(255, 132, 115, 0.4);
+  border: 1px solid rgba(148, 137, 121);
 }
 
-/* --- 3. SEQUENTIAL CONTENT BUILD --- */
-.project-card h2, .project-card h3, .project-card p, 
-.project-card .image, .project-card .icon {
+.project-card.visible:hover {
+  transform: scale(1.1);
+  box-shadow:  10px 20px rgba(255, 132, 115, 0.4);
+}
+
+.project-card img {
+  width: 60%;
+  max-width: auto;
+  height: auto;
+  border-radius: 1vh;
+  margin: 20px auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: 0.4s ease;
+}
+
+.project-card img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(255, 132, 115, 0.3);
+}
+
+.project-card h2, .project-card h3, .project-card p {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: rotateX(-90deg);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  color : #D9B99B;
 }
 
-/* Staggering the reveal - each element waits for the previous one */
-.project-card.visible h2 { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-.project-card.visible h3 { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-.project-card.visible p  { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
-.project-card.visible .image { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-.project-card.visible .icon  { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
-
-/* --- 4. THEME & INTERACTION --- */
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(255, 79, 55, 0.4);
-  border-color: #FF8473;
+.project-card .icon-image {
+  width: 5vh;
+  display: block;
+  margin: 20px auto 0 auto;
 }
 
-.project-card.active {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1) !important;
-  z-index: 2000;
-  max-width: 600px;
-  background: rgba(40, 0, 0, 0.95);
-  clip-path: inset(0 0 0 0); /* Ensures focus state is fully visible */
+.project-card.visible { opacity: 1; transform: rotateX(0); transition-delay: 0s; }
+.project-card.visible h2 { opacity: 1; transform: rotateX(0); transition-delay: 0s; }
+.project-card.visible h3 { opacity: 1; transform: rotateX(0); transition-delay: 0.1s; }
+.project-card.visible p  { opacity: 1; transform: rotateX(0); transition-delay: 0.2s; }
+.project-card.visible img { opacity: 1; transform: rotateX(0); transition-delay: 0.3s; }
+.project-card.visible .icon-image { opacity: 1; transform: rotateX(0); transition-delay: 0.4s; }
+
+.project-card img {
+  opacity: 0;
+  transform: rotateX(-90deg);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card.visible img {
+  opacity: 1;
+  transform: rotateX(0);
+  transition-delay: 0.5s;
+}
+
+/* Hide scrollbar in WebKit (Chrome, Safari) */
+.projects::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar in Firefox */
+.projects {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar in IE/Edge */
+.projects {
+  -ms-overflow-style: none;
 }

@@ -7,15 +7,15 @@ section {
   min-height: auto !important;
   overflow: visible;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(148, 137, 121);
+  border: 1px solid rgba(148, 137, 121);
   box-shadow: 0 10px 20px rgba(255, 132, 115, 0.4);
   border-radius: 1.5vh;
   transition: 0.6s ease-in-out;
 }
 
 .section:hover {
-  transform: scale(1.1); 
-  letter-spacing: 2px;   
+  transform: scale(1.1);
+  box-shadow:  10px 20px rgba(255, 132, 115, 0.4);
 }
 
 .bio p {
@@ -40,7 +40,6 @@ section {
 
 .bio:hover h3 {
   transform: scale(1.1); 
-  letter-spacing: 2px;
 }
 
 .bio-images {
