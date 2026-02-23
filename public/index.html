@@ -7,6 +7,14 @@
   <link rel="stylesheet" href="css/home/general.css" />
   <link rel="stylesheet" href="css/home/nav.css">
   <link rel="stylesheet" href="css/home/content.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+      "firebase/functions": "https://www.gstatic.com/firebasejs/10.8.0/firebase-functions.js"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -14,7 +22,7 @@
 
   <header>
     <nav class="navbar">
-      <a href="home.html" class="icon-btn">
+      <a href="index.html" class="icon-btn">
         <img src="assets/icons/home.png" alt="Home Icon" class="nav-icon">
       </a>
       <a href="about.html" class="icon-btn">
@@ -32,40 +40,36 @@
     </nav>
   </header>
 
+  <canvas id = "interactive-canvas"></canvas>
 
 
   <main>
+
     <section id="home" class="home">
       <div class="self-image">
         <img src="assets/images/self-image.jpeg" alt="Jared Van Eeden">
       </div>
       <div class="intro-text">
         <h2>Hi, I'm Jared Van Eeden</h2>
-        <p>Software Developer in Training</p>
+        <p>Software Developer in Training at WeThinkCode_</p>
       </div>
     </section>
 
     <section id="contact" class="contact">
       <div>
         <h2>Contact Me</h2>
-        <form>
-          <input type="text" placeholder="Your Name" required>
-          <input type="email" placeholder="Your Email" required>
-          <textarea placeholder="Your Message" rows="4" required></textarea>
-          <button type="submit">Send Message</button>
+        <form id="contact-form">
+          <input type="text" id="user_name" placeholder="Your Name" required>
+          <input type="email" id="user_email" placeholder="Your Email" required>
+          <textarea id="message" placeholder="Your Message" rows="4" required></textarea>
+          <button type="submit" id="submit-btn">Send Message</button>
         </form>
       </div>
     </section>
   </main>
 
-
-
-
-  <footer class="footer">
-    <p>© 2025 Jared Van Eeden — All Rights Reserved</p>
-  </footer>
-
-
+  <script src="js/animation.js"></script>
+  <script type="module" src="js/contact.js"></script>
 
 </body>
 </html>

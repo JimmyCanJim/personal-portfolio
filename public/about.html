@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/about/general.css">
+  <link rel="stylesheet" href="css/home/nav.css">
+  <link rel="stylesheet" href="css/about/content.css">
+  <title>Jared Van Eeden | About</title>
+</head>
+<body>
+  <canvas id="interactive-canvas"></canvas>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="icon-btn">
+        <img src="assets/icons/home.png" alt="Home Icon" class="nav-icon">
+      </a>
+      <a href="about.html" class="icon-btn">
+        <img src="assets/icons/information-button.png" alt="About Icon" class="nav-icon">
+      </a>
+      <a href="projects.html" class="icon-btn">
+        <img src="assets/icons/rocket.png" alt="projects-btn" class="nav-icon">
+      </a>
+      <a href="https://www.linkedin.com/in/jared-van-eeden-483499258/" class="icon-btn" target="_blank">
+        <img src="assets/icons/linkedin.png" alt="LinkedIn Icon" class="nav-icon">
+      </a>
+      <a href="https://github.com/JimmyCanJim" class="icon-btn" target="_blank">
+        <img src="assets/icons/github.png" alt="GitHub Icon" class="nav-icon">
+      </a>
+    </nav>
+  </header>
+
+  <main>
+
+<main>
+  <section id="about" class="about">
+    <div class="bio">
+      <h3>My Biography</h3>
+      <p>I am an aspiring software developer currently training at WeThinkCode_, where I am learning problem-solving, innovative software solutions
+        Driven by the love for coding, I am enthusiastic about learning and understanding programming languages, frameworks, ad development tool.
+      </p>
+
+      <p>Currently I am focusing on the MERN stack, for full stack web development and doing linear algebra for Machine Learning and AI.
+        I am commited to honing my skills and building a strong foundation for softawre development. 
+      </p>
+      <div class="bio-images">
+        <img src="assets/images/bio-2.jpeg" alt="Bio 1">
+        <img src="assets/images/bio-4.jpeg" alt="Bio 2">
+        <img src="assets/images/WhatsApp Image 2026-02-22 at 20.23.24.jpeg" alt="Bio 3">
+        <img src="assets/images/WhatsApp Image 2026-02-22 at 20.23.25.jpeg" alt="Bio 4">
+      </div>
+    </div>
+  </section>
+
+  <section class="experience">
+    <h3>My Experiences Sofar</h3>
+    <div class="carousel-container">
+      <div class="carousel-main">
+        <button class="nav-btn prev">❮</button>
+        <div class="carousel-track">
+          <img src="assets/icons/html5.png" class="carousel-img" data-message="HTML5 (HyperText Markup Language 5) is the standard language used to create the structure and content of a website. It allows developers to define headers, footers, sections, and navigation menus using semantic tags, which help search engines and browsers understand the layout of the page.">
+          <img src="assets/icons/css3.png" class="carousel-img" data-message="I use CSS3 to transform raw HTML into polished, responsive user interfaces. My work focuses on modern layouts using Flexbox and Grid, and I have implemented advanced techniques like Glassmorphism, backdrop filters, and custom cubic-bezier animations to create a high-end feel for my portfolio.">
+          <img src="assets/icons/javascript.png" class="carousel-img active" data-message="JavaScript is the engine behind the interactivity on my site. I use it to manage the DOM, handle Firebase cloud function calls for my contact form, and build custom components like the interactive skills carousel you see here.">
+          <img src="assets/icons/python.png" class="carousel-img" data-message="Python is my primary tool for Machine Learning and AI. I have used it to train speech recognition models with PyTorch, build a spam detection engine using the Naive Bayes algorithm, and develop the backend AI logic for my NurseHelpDesk project.">
+          <img src="assets/icons/delphi.png" class="carousel-img" data-message="Through my studies at WeThinkCode_, I use Java to master Object-Oriented Programming (OOP). I focus on writing clean, scalable code and building robust backend logic, such as the command-line booking system I developed for our Coding Clinics.">
+          <img src="assets/icons/java.png" class="carousel-img" data-message="Delphi provided my early foundation in software development. I used it to understand the core concepts of the VCL (Visual Component Library) and Pascal-based programming, which helped me transition into more complex languages like Java and C++.">
+        </div>
+        <button class="nav-btn next">❯</button>
+      </div>
+      <div id="skill-message" class="skill-message">Click a logo to learn more!</div>
+    </div>
+  </section>
+</main>
+    <script src="js/animation.js"></script>
+    <script src="js/carousel.js"></script>
+</body>
+</html>
