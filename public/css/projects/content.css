@@ -1,7 +1,6 @@
-/* --- 1. THE LAYOUT ENGINE --- */
-main {
+main {  
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
@@ -10,14 +9,11 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 80px; /* More breathing room for the "Build" animation */
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15vh 0; /* Ensures first and last cards can center */
+  gap: 100px;
+  padding: 20vh 0;
 }
 
-/* --- 2. THE CONSTRUCTION ANIMATION --- */
+/* --- 2. THE CONSTRUCTION PHASE --- */
 .project-card {
   scroll-snap-align: center;
   width: 90%;
@@ -26,132 +22,59 @@ main {
   backdrop-filter: blur(10px);
   border: 2px solid rgba(148, 137, 121);
   border-radius: 1.5vh;
-  padding: 30px;
-  
-  /* Initial "Unbuilt" State */
+  padding: 35px;
   opacity: 0;
+  
+  /* Initial 'Deconstructed' State */
   clip-path: inset(0 100% 0 0); 
-  transform: translateY(50px); /* Start lower for a "rising" build */
+  transform: translateY(40px) scale(0.95);
   transition: opacity 0.8s ease, 
               clip-path 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
-              transform 1s ease,
-              box-shadow 0.4s ease;
+              transform 1s ease;
 }
 
-/* Specific start state for even cards (Slide from right) */
+/* Alternate build direction for even cards */
 .project-card:nth-child(even) {
-  transform: translateY(50px) rotate(3deg);
+  clip-path: inset(0 0 0 100%);
+  transform: translateY(40px) scale(0.95) rotate(2deg);
 }
 
-/* The "Built" State triggered by JS */
+/* The 'Built' State */
 .project-card.visible {
   opacity: 1;
   clip-path: inset(0 0 0 0);
-  transform: translateY(0) rotate(0deg);
+  transform: translateY(0) scale(1) rotate(0deg);
 }
 
-/* --- 3. STAGGERED CONTENT BUILD --- */
+/* --- 3. SEQUENTIAL CONTENT BUILD --- */
 .project-card h2, .project-card h3, .project-card p, 
 .project-card .image, .project-card .icon {
   opacity: 0;
-  transform: translateY(15px);
+  transform: translateY(20px);
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-card.visible h2 { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
-.project-card.visible h3 { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-.project-card.visible p  { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-.project-card.visible .image { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
-.project-card.visible .icon  { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+/* Staggering the reveal - each element waits for the previous one */
+.project-card.visible h2 { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+.project-card.visible h3 { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+.project-card.visible p  { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+.project-card.visible .image { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+.project-card.visible .icon  { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
 
 /* --- 4. THEME & INTERACTION --- */
-.project-card h2 { color: #d9b99b; text-align: center; }
-.project-card h3 { color: #a18972; text-align: center; font-size: 1rem; }
-.project-card p  { color: #86715e; line-height: 1.6; }
-
 .project-card:hover {
-  transform: translateY(-10px); /* Lift slightly */
-  box-shadow: 0 10px 30px rgba(255, 79, 55, 0.3);
-  border-color: rgba(255, 79, 55, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(255, 79, 55, 0.4);
+  border-color: #FF8473;
 }
 
-.project-card .image {
-  width: 100%;
-  height: auto;
-  max-height: 250px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin: 20px 0;
-  border: 1px solid rgba(148, 137, 121, 0.3);
-}
-
-.project-card .icon img {
-  width: 28px;
-  height: 28px;
-  opacity: 0.6;
-  transition: 0.3s;
-}
-
-.project-card .icon:hover img {
-  transform: scale(1.2);
-  opacity: 1;
-}
-
-/* --- 5. RESPONSIVE --- */
-@media (max-width: 768px) {
-  .projects { width: 95%; margin-top: 50px; }
-  .project-card { padding: 20px; }
-  .project-card.active { width: 92vw; padding: 25px; }
-}
-
-/* --- 6. CLICK-TO-ZOOM MODAL STYLES --- */
-
-/* Dim the rest of the projects when one is clicked */
-.projects.dimmed .project-card:not(.active) {
-  opacity: 0 !important;
-  pointer-events: none;
-  transform: scale(0.9);
-}
-
-/* The dark glass overlay behind the active card */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(2, 0, 36, 0.6); 
-  backdrop-filter: blur(8px);
-  z-index: 100;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.5s ease;
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* The expanded Active Card */
 .project-card.active {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.05) !important;
+  transform: translate(-50%, -50%) scale(1) !important;
   z-index: 2000;
-  width: 90vw;
-  max-width: 700px;
-  max-height: 85vh;
-  overflow-y: auto; /* Adds a scrollbar if your description gets long */
-  background: rgba(40, 0, 0, 0.95); /* Matches your deep red radial gradient */
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.9);
-  cursor: default;
-  clip-path: inset(0 0 0 0); /* Ensures the build animation doesn't cut it off */
-}
-
-/* Make sure the particle canvas comes forward when a card is open */
-body.card-open #interactive-canvas {
-  opacity: 1;
-  z-index: 50;
+  max-width: 600px;
+  background: rgba(40, 0, 0, 0.95);
+  clip-path: inset(0 0 0 0); /* Ensures focus state is fully visible */
 }

@@ -2,28 +2,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll('.project-card');
   const projectsGrid = document.querySelector('.projects');
 
-  // 1. Create the overlay
+  // 1. Create the overlay for focus mode
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   document.body.appendChild(overlay);
 
-  // 2. The Scroll Observer
+  // 2. The Scroll Observer (The "Constructor")
   const observerOptions = {
-      threshold: 0.15, // Triggers when 15% is visible
+      root: document.querySelector('main'),
+      threshold: 0.2, 
       rootMargin: "0px 0px -50px 0px" 
-  };
+    };
 
   const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
           if (entry.isIntersecting) {
               entry.target.classList.add('visible');
+          } else {
+              // Optional: removes the build to re-animate when scrolling up
+              entry.target.classList.remove('visible');
           }
       });
   }, observerOptions);
 
   cards.forEach(card => observer.observe(card));
 
-  // 3. Click-to-Zoom Logic
+  // 3. Click-to-Focus Logic
   cards.forEach(card => {
     card.addEventListener('click', (e) => {
       if (e.target.closest('.icon')) return;
