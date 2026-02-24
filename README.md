@@ -13,6 +13,7 @@ This is a fully responsive personal portfolio website built using HTML5, CSS3, a
 - Smooth scrolling navigation and section transitions
 
 
+
 ## Key Features
 - Fully responsive design (mobile-first approach)
 - Smooth CSS transitions and animations

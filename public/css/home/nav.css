@@ -41,7 +41,9 @@
     justify-content: space-around; 
     padding-top: 0;   
     border-right: none;
-    border-bottom: 1px solid rgba(217, 185, 155, 0.2); 
+    border-bottom: 1px solid rgba(217, 185, 155, 0.2);
+    /* Make the background solid so content doesn't bleed through when scrolling */
+    background: rgba(34, 40, 49, 0.98); 
   }
 
   .icon-btn {
