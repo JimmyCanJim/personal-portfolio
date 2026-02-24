@@ -57,6 +57,7 @@ section {
   object-fit: cover;
   border-radius: 1vh;
   transition: 0.3s;
+  border: 2px solid rgba(148, 137, 121);
 }
 
 .bio-images img:hover {
@@ -67,6 +68,7 @@ section {
 .experience h3 {
   margin-bottom: 4vh;
   justify-self: center;
+  color : #D9B99B;
 }
 
 .experience {
@@ -97,7 +99,6 @@ section {
   justify-self: center;
   margin-top: 20px;
   padding: 15px;
-  background: rgba(34, 40, 49, 0.8);
   border: 1px solid rgba(217, 185, 155, 0.3);
   border-radius: 10px;
   color: #D9B99B;
@@ -107,6 +108,7 @@ section {
   backdrop-filter: blur(5px);
   width: 100%;
   max-width: 400px;
+  backdrop-filter: blur(10px)
 }
 
 .carousel-img {

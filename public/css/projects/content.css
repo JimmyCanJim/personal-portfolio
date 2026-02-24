@@ -9,11 +9,11 @@
   perspective: 1000px;
   scroll-snap-type: y mandatory;
   overflow-y: scroll;           
-  height: 100vh;              
+  height: 100vh;
 }
 
 .project-card {
- 
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,13 +30,11 @@
   border-radius: 1.5vh;
 
   transition: 
-    transform 0.6s ease,
+    transform 0.4s ease,
     opacity 0.6s ease,
-    clip-path 0.6s cubic-bezier(0.86, 0, 0.07, 1),
-    box-shadow 0.4s ease,
-    border-color 0.6s ease,
-    box-shadow 0.6 ease;
-
+    clip-path 0.8s cubic-bezier(0.86, 0, 0.07, 1),
+    box-shadow 1s ease,
+    border-color 1.2s ease;
   text-align: center;
 
   scroll-snap-align: center;
@@ -50,31 +48,63 @@
 }
 
 .project-card.visible {
-  opacity: 1;
-  clip-path: inset(0 0 0 0);
-  transform: translateY(0) scale(1);
-  box-shadow: 0 10px 20px rgba(255, 132, 115, 0.4);
+  box-shadow: 
+    0 15px 30px rgba(255, 132, 115, 0.5),
+    0 0 40px rgba(255, 132, 115, 0.3);
   border: 1px solid rgba(148, 137, 121);
+  transition: 0.6s ease-in-out;
 }
 
+.project-card.visible:hover img {
+  transform: scale(1.05);
+}
 .project-card.visible:hover {
-  transform: scale(1.1);
-  box-shadow:  10px 20px rgba(255, 132, 115, 0.4);
+  box-shadow: 0 15px 30px rgba(255, 79, 55, 0.5)
 }
 
 .project-card img {
   width: 60%;
-  max-width: auto;
   height: auto;
   border-radius: 1vh;
   margin: 20px auto;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  transition: 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  z-index: 1;
 }
 
-.project-card img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 25px rgba(255, 132, 115, 0.3);
+.project-card.visible.clicked {
+  transform: scale(3) translateY(-20px);
+  z-index: 50;
+  box-shadow: 0 50px 80px rgba(0,0,0,0.7);
+}
+
+.project-card img.clicked {
+  filter: none;
+}
+
+.description-overlay h2 {
+  margin-bottom: 1rem;
+}
+
+.description-overlay p {
+  line-height: 1.5;
+}
+
+/* Close button inside overlay */
+.description-overlay .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.projects.blur-bg .project-card:hover {
+  filter: none;
 }
 
 .project-card h2, .project-card h3, .project-card p {
@@ -82,6 +112,7 @@
   transform: rotateX(-90deg);
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   color : #D9B99B;
+  margin-bottom: 2vh;
 }
 
 .project-card .icon-image {
@@ -90,12 +121,12 @@
   margin: 20px auto 0 auto;
 }
 
-.project-card.visible { opacity: 1; transform: rotateX(0); transition-delay: 0s; }
-.project-card.visible h2 { opacity: 1; transform: rotateX(0); transition-delay: 0s; }
-.project-card.visible h3 { opacity: 1; transform: rotateX(0); transition-delay: 0.1s; }
-.project-card.visible p  { opacity: 1; transform: rotateX(0); transition-delay: 0.2s; }
-.project-card.visible img { opacity: 1; transform: rotateX(0); transition-delay: 0.3s; }
-.project-card.visible .icon-image { opacity: 1; transform: rotateX(0); transition-delay: 0.4s; }
+.project-card.visible { opacity: 1; transform: rotateX(0); transition-delay: 0.2s; }
+.project-card.visible h2 { opacity: 1; transform: rotateX(0); transition-delay: 0.4s; }
+.project-card.visible h3 { opacity: 1; transform: rotateX(0); transition-delay: 0.6s; }
+.project-card.visible p  { opacity: 1; transform: rotateX(0); transition-delay: 0.8s; }
+.project-card.visible img { opacity: 1; transform: rotateX(0); transition-delay: 1s; }
+.project-card.visible .icon-image { opacity: 1; transform: rotateX(0); transition-delay: 1s; }
 
 .project-card img {
   opacity: 0;
@@ -119,7 +150,153 @@
   scrollbar-width: none;
 }
 
-/* Hide scrollbar in IE/Edge */
 .projects {
   -ms-overflow-style: none;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease;
+  z-index: 200;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal */
+.description-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 85%;
+  height: 85%;
+  max-width: 1200px;
+  background: rgba(255,255,255,0.98);
+  border-radius: 24px;
+  box-shadow: 
+    0 50px 150px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(255,255,255,0.2);
+  transform: translate(-50%, -50%) scale(0.92);
+  opacity: 0;
+  visibility: hidden;
+  transition: 
+    transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 0.25s ease;
+  overflow: hidden;
+  z-index: 201;
+}
+
+.description-overlay.active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  pointer-events: none;
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.05);
+}
+
+.description-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+.document-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.document-header {
+  height: 60px;
+  background: linear-gradient(135deg, #812929, #020024);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.doc-title {
+  font-weight: 500;
+}
+
+
+/* Body */
+.document-body {
+  flex: 1;
+  position: relative;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+/* Frame wrapper */
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 40px rgba(0,0,0,0.15),
+    inset 0 0 0 1px rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: scale(1.03);
+  transition: 
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.pdf-frame.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: all 0.25s ease;
+}
+
+.close-btn:hover {
+  background: black;
+  transform: rotate(90deg);
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(0,0,0,0.1);
+  border-top: 4px solid #111;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 1s linear infinite;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }

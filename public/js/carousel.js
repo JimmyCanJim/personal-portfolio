@@ -2,15 +2,17 @@ const imgs = document.querySelectorAll('.carousel-img');
 const msgBox = document.getElementById('skill-message');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
-let currentIndex = 2;
+
+// Start in the middle automatically
+let currentIndex = Math.floor(imgs.length / 2);
 
 function updateCarousel() {
   imgs.forEach((img, index) => {
     img.classList.remove('active');
+
     if (index === currentIndex) {
       img.classList.add('active');
-      
-      // Safety check: only update if the attribute exists
+
       const message = img.getAttribute('data-message');
       if (message) {
         msgBox.innerText = message;
@@ -20,7 +22,7 @@ function updateCarousel() {
   });
 }
 
-// Allow clicking a logo directly to show its message
+// Click logo directly
 imgs.forEach((img, index) => {
   img.addEventListener('click', () => {
     currentIndex = index;
@@ -42,4 +44,5 @@ prevBtn.addEventListener('click', () => {
   }
 });
 
-// Initial load
+// 🔥 Initialize on page load
+updateCarousel();
