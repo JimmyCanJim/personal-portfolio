@@ -41,3 +41,7 @@ This is a fully responsive personal portfolio website built using HTML5, CSS3, a
 ## Deployment
 This portfolio website is deployed using __Firebase Hosting__, allowing for fast, secure, and reliable global access.
 
+## Author:
+Junior Developer: Jared Van Eeden
+- LinkedIn: https://www.linkedin.com/in/jared-van-eeden-483499258/
+- Personal Portfolio: https://personal-portfolio-bf19d.web.app/index.html
