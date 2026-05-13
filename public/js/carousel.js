@@ -1,5 +1,4 @@
 const imgs = document.querySelectorAll('.carousel-img');
-const msgBox = document.getElementById('skill-message');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
@@ -12,12 +11,6 @@ function updateCarousel() {
 
     if (index === currentIndex) {
       img.classList.add('active');
-
-      const message = img.getAttribute('data-message');
-      if (message) {
-        msgBox.innerText = message;
-        msgBox.style.opacity = "1";
-      }
     }
   });
 }
