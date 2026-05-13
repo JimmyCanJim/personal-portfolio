@@ -20,13 +20,13 @@
   justify-content: center;
   opacity: 0;
   width: 90%;
-  max-width: 900px;
-  margin: 4vh auto;
-  padding: 3.8vh;
-  backdrop-filter: blur(10px);
-  background: rgba(34, 40, 49, 0.6);
-  border: 1px solid transparent;
-  box-shadow: 0 10px 20px rgba(255, 132, 115, 0.4);
+  max-width: clamp(300px, 80vw, 900px);
+  margin: 2rem auto; /* Changed from 4vh */
+  padding: 2rem; /* Changed from 3.8vh */
+  backdrop-filter: blur(12px);
+  background: rgba(20, 22, 28, 0.6); 
+  border: 1px solid rgba(255, 255, 255, 0.05); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); 
   border-radius: 1.5vh;
 
   transition: 
@@ -48,59 +48,32 @@
 }
 
 .project-card.visible {
-  box-shadow: 
-    0 15px 30px rgba(255, 132, 115, 0.5),
-    0 0 40px rgba(255, 132, 115, 0.3);
-  border: 1px solid rgba(148, 137, 121);
-  transition: 0.6s ease-in-out;
+  border: 1px solid rgba(229, 57, 53, 0.15); 
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(229, 57, 53, 0.05);
 }
 
-.project-card.visible:hover img {
-  transform: scale(1.05);
-}
 .project-card.visible:hover {
-  box-shadow: 0 15px 30px rgba(255, 79, 55, 0.5)
+  border-color: rgba(229, 57, 53, 0.8); /* Sharp, clean crimson border */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(229, 57, 53, 0.15);
+  transform: translateY(-8px); /* Smooth floating lift */
 }
 
+/* Base image styling inside the card */
 .project-card img {
-  width: 60%;
+  width: 100%;
+  max-width: 500px; /* Caps the size on desktops */
   height: auto;
   border-radius: 1vh;
   margin: 20px auto;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   position: relative;
   z-index: 1;
+  opacity: 0;
+  transform: rotateX(-90deg);
 }
 
-.project-card.visible.clicked {
-  transform: scale(3) translateY(-20px);
-  z-index: 50;
-  box-shadow: 0 50px 80px rgba(0,0,0,0.7);
-}
-
-.project-card img.clicked {
-  filter: none;
-}
-
-.description-overlay h2 {
-  margin-bottom: 1rem;
-}
-
-.description-overlay p {
-  line-height: 1.5;
-}
-
-/* Close button inside overlay */
-.description-overlay .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 0.5rem;
+.project-card.visible:hover .image {
+  transform: scale(1.05);
 }
 
 .projects.blur-bg .project-card:hover {
@@ -111,8 +84,28 @@
   opacity: 0;
   transform: rotateX(-90deg);
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  color : #D9B99B;
   margin-bottom: 2vh;
+} 
+
+.project-card h2 {
+  color: #FFFFFF; /* Crisp white for the main project title */
+  letter-spacing: 1px;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+}
+
+.project-card h3 {
+  color: #E53935; /* Clean, vibrant crimson for the 'Description' label */
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+.project-card p {
+  color: #B2B5B9; /* Soft silver for highly readable paragraph text */
+  line-height: 1.6;
+  font-weight: 300;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
 }
 
 .project-card .icon-image {
@@ -121,182 +114,138 @@
   margin: 20px auto 0 auto;
 }
 
+/* Staggered load-in animations */
 .project-card.visible { opacity: 1; transform: rotateX(0); transition-delay: 0.2s; }
-.project-card.visible h2 { opacity: 1; transform: rotateX(0); transition-delay: 0.4s; }
-.project-card.visible h3 { opacity: 1; transform: rotateX(0); transition-delay: 0.6s; }
+.project-card.visible h2 { 
+  opacity: 1; 
+  transform: rotateX(0); 
+  transition-delay: 0.4s; 
+}
+
+.project-card.visible h3 { 
+  opacity: 1; 
+  transform: rotateX(0); 
+  transition-delay: 0.6s; 
+}
+
 .project-card.visible p  { opacity: 1; transform: rotateX(0); transition-delay: 0.8s; }
-.project-card.visible img { opacity: 1; transform: rotateX(0); transition-delay: 1s; }
 .project-card.visible .icon-image { opacity: 1; transform: rotateX(0); transition-delay: 1s; }
 
-.project-card img {
+/* Hide scrollbars */
+.projects::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+.projects {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+
+/* ===============================
+   Lightbox Overlay Styles
+=============================== */
+.lightbox-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.lightbox-backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  transform: scale(0.7);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.lightbox-image.active {
+  transform: scale(1);
+}
+
+/* ===============================
+   Project Image Slider
+=============================== */
+.project-slider {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  
+  /* Initial load animation state */
   opacity: 0;
   transform: rotateX(-90deg);
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.project-card.visible img {
+.project-card.visible .project-slider {
   opacity: 1;
   transform: rotateX(0);
   transition-delay: 0.5s;
 }
 
-/* Hide scrollbar in WebKit (Chrome, Safari) */
-.projects::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar in Firefox */
-.projects {
-  scrollbar-width: none;
-}
-
-.projects {
-  -ms-overflow-style: none;
-}
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(12px);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.35s ease;
-  z-index: 200;
-}
-
-.modal-backdrop.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Modal */
-.description-overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 85%;
-  height: 85%;
-  max-width: 1200px;
-  background: rgba(255,255,255,0.98);
-  border-radius: 24px;
-  box-shadow: 
-    0 50px 150px rgba(0,0,0,0.6),
-    0 0 0 1px rgba(255,255,255,0.2);
-  transform: translate(-50%, -50%) scale(0.92);
-  opacity: 0;
-  visibility: hidden;
-  transition: 
-    transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
-    opacity 0.25s ease;
-  overflow: hidden;
-  z-index: 201;
-}
-
-.description-overlay.active::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  pointer-events: none;
-  box-shadow: inset 0 0 80px rgba(0,0,0,0.05);
-}
-
-.description-overlay.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
-}
-.document-container {
-  height: 100%;
+.slider-track {
   display: flex;
-  flex-direction: column;
-  border-radius: 24px;
-  overflow: hidden;
-}
-
-.document-header {
-  height: 60px;
-  background: linear-gradient(135deg, #812929, #020024);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
-
-.doc-title {
-  font-weight: 500;
-}
-
-
-/* Body */
-.document-body {
-  flex: 1;
-  position: relative;
-  background: #f4f4f4;
-  padding: 20px;
-}
-
-/* Frame wrapper */
-.pdf-frame {
   width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 16px;
-  box-shadow: 
-    0 10px 40px rgba(0,0,0,0.15),
-    inset 0 0 0 1px rgba(0,0,0,0.05);
-  opacity: 0;
-  transform: scale(1.03);
-  transition: 
-    opacity 0.4s ease,
-    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.pdf-frame.show {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Close Button */
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: none;
-  font-size: 20px;
-  background: rgba(0,0,0,0.8);
-  color: white;
+/* The actual images inside the slider */
+.slider-track .image {
+  width: 100%;
+  flex-shrink: 0; /* Prevents images from squishing */
+  object-fit: cover;
+  border-radius: 12px;
   cursor: pointer;
-  backdrop-filter: blur(5px);
-  transition: all 0.25s ease;
+  margin: 0; /* Resets old margin */
 }
 
-.close-btn:hover {
-  background: black;
-  transform: rotate(90deg);
-}
-
-.loader {
+/* Slider Navigation Buttons */
+.slider-btn {
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: 48px;
-  height: 48px;
-  border: 4px solid rgba(0,0,0,0.1);
-  border-top: 4px solid #111;
+  transform: translateY(-50%);
+  background: rgba(11, 12, 16, 0.7);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: spin 1s linear infinite;
-  transition: opacity 0.3s ease;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  transition: 0.3s ease-in-out;
 }
 
-@keyframes spin {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+.slider-btn:hover {
+  background: #E53935;
+  border-color: #E53935;
+  box-shadow: 0 0 15px rgba(229, 57, 53, 0.5);
+  transform: translateY(-50%) scale(1.1);
 }
+
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }

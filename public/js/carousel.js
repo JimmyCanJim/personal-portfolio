@@ -30,6 +30,33 @@ nextBtn.addEventListener('click', () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const bioTrack = document.querySelector('.bio-track');
+    const bioImages = document.querySelectorAll('.bio-img');
+    const prevBioBtn = document.querySelector('.prev-bio');
+    const nextBioBtn = document.querySelector('.next-bio');
+
+    // Only run if the elements actually exist on the page
+    if (bioTrack && bioImages.length > 0) {
+        let currentBioIndex = 0;
+
+        const updateBioSlider = () => {
+            // Slide by 100% of the viewport width
+            bioTrack.style.transform = `translateX(-${currentBioIndex * 100}%)`;
+        };
+
+        nextBioBtn.addEventListener('click', () => {
+            currentBioIndex = (currentBioIndex + 1) % bioImages.length;
+            updateBioSlider();
+        });
+
+        prevBioBtn.addEventListener('click', () => {
+            currentBioIndex = (currentBioIndex - 1 + bioImages.length) % bioImages.length;
+            updateBioSlider();
+        });
+    }
+});
+
 prevBtn.addEventListener('click', () => {
   if (currentIndex > 0) {
     currentIndex--;

@@ -1,143 +1,130 @@
-.home {
+/* Container styling matching the professional glassmorphism */
+.home, .contact {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: 2px solid rgba(148, 137, 121);
-  box-shadow: 0 10px 20px rgba(255, 132, 115, 0.4);
+  backdrop-filter: blur(12px);
+  background: rgba(20, 22, 28, 0.6); /* Dark neutral glass */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Barely visible resting border */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); /* Deep depth shadow */
+  border-radius: 1.5vh;
   transition: 0.4s ease-in-out;
 }
 
-.home:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(255, 79, 55, 0.3);
+.home:hover, .contact:hover {
+  transform: translateY(-5px);
+  border-color: rgba(229, 57, 53, 0.8); /* Sharp crimson border */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(229, 57, 53, 0.15);
 }
 
-
+/* Profile Image */
 .self-image img {
   max-width: 100%;
   width: 30vh;
   height: 30vh;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid rgba(148, 137, 121);
-  box-shadow: 
-    0 10px 20px rgba(255, 132, 115, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   transition: 0.4s ease-in-out;
   margin: 4vh;
 }
 
-.self-image img:hover {
-  transform: scale(1.05) translateY(-5px);
-  box-shadow: 0 10px 30px rgba(255, 79, 55, 0.5);
+.home:hover .self-image img {
+  border-color: #E53935; /* Image gets the crimson ring on card hover */
+  transform: scale(1.03);
 }
 
+/* Introduction Text */
 .intro-text {
   max-width: 90%; 
   width: 600px;   
-  font-size: 1.2rem; 
+  font-size: 1.1rem; 
   line-height: 1.6;
-  margin: 0 auto 10vh auto;
-  color: rgb(217,185,155);
-  transition: 0.6s ease-in-out;
-}
-
-.intro-text:hover {
-  transform: scale(1.05) translateY(-5px);
-  text-shadow: 0px 2px 2px rgba(255, 79, 55, 0.3);
-  cursor: pointer;
-}
-
-.contact {
-  box-shadow: 0 10px 20px rgba(255, 132, 115, 0.4);
-  border: 1px solid rgb(148, 137, 121);
-  padding: 20px;
-  border-radius: 1.5vh;
-  width: 90%;     
-  max-width: 400px; 
-  margin: auto;
+  margin: 0 auto 8vh auto;
+  color: #B2B5B9; /* Soft silver for readability */
+  font-weight: 300;
   transition: 0.4s ease-in-out;
+}
+
+.intro-text h2 {
+  /* Scales smoothly between 1.5rem and 2.5rem based on window width */
+  font-size: clamp(1.5rem, 4vw, 2.5rem); 
+  margin-bottom: 1rem;
 }
 
 .contact h2 {
-  margin-bottom: 2.2vh;
-  color: rgb(217,185,155);
+  font-size: clamp(1.5rem, 4vw, 2rem);
 }
 
-.contact input {
-  margin-bottom: 1vh;
-  border-radius: 1vh;
-  padding-left: 0.8vh;
-  padding-right: 0.8vh;
-  padding-bottom: 0.3vh;
-  padding-top: 0.3vh;
-  border: 1px solid rgba(148, 137, 121);
-  background-color: rgba(176, 145, 113, 1);
-  color: black;
-  outline: none;
-  transition: 0.4s ease-in-out;
+.intro-text strong {
+  color: #FFFFFF; /* Make any bold text pure white to pop */
 }
 
-.contact input:hover {
-  transform: scale(1.05)
+/* Contact Form Specifics */
+.contact {
+  padding: 30px 20px;
+  width: 90%;     
+  max-width: 450px; 
+  margin: auto auto 5vh auto;
 }
 
-.contact textarea {
-  margin-bottom: 2vh;
-  padding-left: 0.8vh;
-  padding-right: 0.8vh;
-  padding-bottom: 0.3vh;
-  padding-top: 0.3vh;
-  border-radius: 10px;
-  border-color: 1px solid rgb(148, 137, 121);
-  background-color: rgba(176, 145, 113, 1);
-  border-width:1px;
-  transition: 0.4s ease-in-out;
-}
-
-.contact textarea:hover {
-  transform: scale(1.05)
-}
-
-.contact button {
-  padding-left: 0.8vh;
-  padding-right: 0.8vh;
-  padding-bottom: 0.3vh;
-  padding-top: 0.3vh;
-  border-radius: 1vh;
-  border-color: rgb(148, 137, 121);
-  border-width: 0.2vh;
-  background-color: rgba(176, 145, 113, 1);
-  transition: 0.4s ease-in-out;
-}
-
-.contact button:hover {
-  transform: scale(1.05);
+.contact h2 {
+  margin-bottom: 3vh;
+  color: #FFFFFF;
+  letter-spacing: 1px;
 }
 
 .contact form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
-.contact:hover {
-  transform: scale(1.05);
+/* Modern Input Fields */
+.contact input, .contact textarea {
+  margin-bottom: 2vh;
+  padding: 12px 15px;
+  border-radius: 8px;
+  background-color: rgba(11, 12, 16, 0.8); /* Dark input background */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  font-family: inherit;
+  outline: none;
+  transition: 0.3s ease-in-out;
+}
+
+.contact input::placeholder, .contact textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.contact input:focus, .contact textarea:focus, 
+.contact input:hover, .contact textarea:hover {
+  border-color: rgba(229, 57, 53, 0.8); /* Red focus/hover state */
+  background-color: rgba(20, 22, 28, 1);
+}
+
+/* Submit Button */
+.contact button {
+  padding: 12px;
+  margin-top: 1vh;
+  border-radius: 8px;
+  border: 1px solid rgba(229, 57, 53, 0.5);
+  background-color: transparent;
+  color: #E53935;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(255, 79, 55, 0.3);
-
+  transition: 0.3s ease-in-out;
 }
 
-.contact input::placeholder,
-.contact textarea::placeholder {
-  color: #333333;
-  opacity: 1;
+.contact button:hover {
+  background-color: #E53935;
+  color: #FFFFFF;
+  box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+  transform: translateY(-2px);
 }
-
-.contact input:focus::placeholder,
-.contact textarea:focus::placeholder {
-  color: #000000;
-}
-
 
 
