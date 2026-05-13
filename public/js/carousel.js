@@ -1,15 +1,17 @@
+/* =========================================
+   1. Skills Icons Carousel
+========================================= */
 const imgs = document.querySelectorAll('.carousel-img');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
 // Start in the middle automatically
-let currentIndex = Math.floor(imgs.length / 2);
+let currentSkillIndex = Math.floor(imgs.length / 2);
 
-function updateCarousel() {
+function updateSkillsCarousel() {
   imgs.forEach((img, index) => {
     img.classList.remove('active');
-
-    if (index === currentIndex) {
+    if (index === currentSkillIndex) {
       img.classList.add('active');
     }
   });
@@ -18,51 +20,84 @@ function updateCarousel() {
 // Click logo directly
 imgs.forEach((img, index) => {
   img.addEventListener('click', () => {
-    currentIndex = index;
-    updateCarousel();
+    currentSkillIndex = index;
+    updateSkillsCarousel();
   });
 });
 
-nextBtn.addEventListener('click', () => {
-  if (currentIndex < imgs.length - 1) {
-    currentIndex++;
-    updateCarousel();
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const bioTrack = document.querySelector('.bio-track');
-    const bioImages = document.querySelectorAll('.bio-img');
-    const prevBioBtn = document.querySelector('.prev-bio');
-    const nextBioBtn = document.querySelector('.next-bio');
-
-    // Only run if the elements actually exist on the page
-    if (bioTrack && bioImages.length > 0) {
-        let currentBioIndex = 0;
-
-        const updateBioSlider = () => {
-            // Slide by 100% of the viewport width
-            bioTrack.style.transform = `translateX(-${currentBioIndex * 100}%)`;
-        };
-
-        nextBioBtn.addEventListener('click', () => {
-            currentBioIndex = (currentBioIndex + 1) % bioImages.length;
-            updateBioSlider();
-        });
-
-        prevBioBtn.addEventListener('click', () => {
-            currentBioIndex = (currentBioIndex - 1 + bioImages.length) % bioImages.length;
-            updateBioSlider();
-        });
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
+    if (currentSkillIndex < imgs.length - 1) {
+      currentSkillIndex++;
+      updateSkillsCarousel();
     }
-});
+  });
+}
 
-prevBtn.addEventListener('click', () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    updateCarousel();
+if (prevBtn) {
+  prevBtn.addEventListener('click', () => {
+    if (currentSkillIndex > 0) {
+      currentSkillIndex--;
+      updateSkillsCarousel();
+    }
+  });
+}
+
+
+/* =========================================
+   2. Bio Image Slider (with Pop-up Captions)
+========================================= */
+const bioTrack = document.querySelector('.bio-track');
+const bioSlides = document.querySelectorAll('.bio-slide'); 
+const prevBioBtn = document.querySelector('.prev-bio');
+const nextBioBtn = document.querySelector('.next-bio');
+const bioMessageBox = document.getElementById('bio-message-box'); // Grabs the new box
+
+let currentBioIndex = 0;
+
+function updateBioSlider() {
+  if (bioTrack) {
+    // 1. Slide the images
+    bioTrack.style.transform = `translateX(-${currentBioIndex * 100}%)`;
+    
+    // 2. Animate the message box
+    if (bioMessageBox && bioSlides[currentBioIndex]) {
+      // Find the hidden caption text for the current slide
+      const captionText = bioSlides[currentBioIndex].querySelector('.bio-caption').textContent;
+      
+      // Remove the 'show' class to drop it down and fade it out
+      bioMessageBox.classList.remove('show');
+      
+      // Wait 150 milliseconds, swap the text, and pop it back up!
+      setTimeout(() => {
+        bioMessageBox.textContent = captionText;
+        bioMessageBox.classList.add('show');
+      }, 150);
+    }
   }
-});
+}
 
-// 🔥 Initialize on page load
-updateCarousel();
+if (nextBioBtn) {
+  nextBioBtn.addEventListener('click', () => {
+    if (currentBioIndex < bioSlides.length - 1) {
+      currentBioIndex++;
+      updateBioSlider();
+    }
+  });
+}
+
+if (prevBioBtn) {
+  prevBioBtn.addEventListener('click', () => {
+    if (currentBioIndex > 0) {
+      currentBioIndex--;
+      updateBioSlider();
+    }
+  });
+}
+
+
+/* =========================================
+   3. Initialize Both Carousels on Load
+========================================= */
+updateSkillsCarousel();
+updateBioSlider();
