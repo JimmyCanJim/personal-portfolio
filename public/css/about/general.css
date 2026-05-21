@@ -45,6 +45,7 @@ main {
   /* Give the navbar its 60px of space, and take up the rest */
   margin-left: 60px; 
   width: calc(100% - 60px); 
+  margin-bottom: 50px;
   
   padding: 0 15px;
   display: flex;

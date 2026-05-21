@@ -81,4 +81,40 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") closeLightbox();
     });
+
+
 });
+
+// Function to animate progress bars when card becomes visible
+const animateProgressBars = () => {
+  const observerOptions = {
+    root: null, // monitors the viewport
+    threshold: 0.2 // fires when 20% of the card is visible
+  };
+
+  const progressObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Find the progress bar fill inside this specific card
+        const progressBarFill = entry.target.querySelector('.progress-bar-fill');
+        if (progressBarFill) {
+          const targetPercentage = progressBarFill.getAttribute('data-percentage');
+          // Apply the width with a slight delay to match your stagger entry
+          setTimeout(() => {
+            progressBarFill.style.width = targetPercentage;
+          }, 500); 
+        }
+        // Once animated, stop observing this card
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Attach the observer to all project cards
+  document.querySelectorAll('.project-card').forEach(card => {
+    progressObserver.observe(card);
+  });
+};
+
+// Initialize once the DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', animateProgressBars);

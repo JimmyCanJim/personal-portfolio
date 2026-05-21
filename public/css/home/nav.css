@@ -1,5 +1,5 @@
 .navbar {
-  background: rgba(20, 22, 28, 0.8); /* Darker glass for nav */
+  background: rgba(59, 36, 36, 0.4); /* Darker glass for nav */
   backdrop-filter: blur(12px); 
   border-right: 1px solid rgba(255, 255, 255, 0.05); /* Subtle edge */
   height: 100vh;
@@ -18,8 +18,7 @@
 .icon-btn {
   margin: 30px 0;
   transition: all 0.3s ease;
-  /* Make icons silver/grey initially */
-  opacity: 0.5;
+  opacity: 1;
   filter: grayscale(100%); 
 }
 

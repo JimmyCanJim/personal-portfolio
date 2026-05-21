@@ -1,0 +1,23 @@
+{
+  "name": "personal-portfolio",
+  "version": "1.0.0",
+  "description": "This is a fully responsive personal portfolio website built using HTML5, CSS3, and JavaScript. The portfolio serves as a dynamic platform that highlights my growth, skills, and development journey as an aspiring Software Developer and Data Engineer. It features a modern, clean user interface with smooth animations, interactive components, and responsive layouts. This project reflects not only my technical ability, but also my attention to UI/UX design, performance optimization, and structured front-end architecture.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JimmyCanJim/personal-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JimmyCanJim/personal-portfolio/issues"
+  },
+  "homepage": "https://github.com/JimmyCanJim/personal-portfolio#readme",
+  "devDependencies": {
+    "vite": "^8.0.13"
+  }
+}

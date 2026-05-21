@@ -72,9 +72,6 @@
   transform: rotateX(-90deg);
 }
 
-.project-card.visible:hover .image {
-  transform: scale(1.05);
-}
 
 .projects.blur-bg .project-card:hover {
   filter: none;
@@ -108,6 +105,17 @@
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
 }
 
+.project-card ul.project-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  color: #FFFFFF;
+}
+
 .project-card .icon-image {
   width: 5vh;
   display: block;
@@ -126,6 +134,18 @@
   opacity: 1; 
   transform: rotateX(0); 
   transition-delay: 0.6s; 
+}
+
+.project-card.visible ul.project-highlights { 
+  opacity: 1; 
+  transform: rotateX(0); 
+  transition-delay: 0.7s; 
+}
+
+.project-card.visible img { 
+  opacity: 1; 
+  transform: rotateX(0); 
+  transition-delay: 0.8s; 
 }
 
 .project-card.visible p  { opacity: 1; transform: rotateX(0); transition-delay: 0.8s; }
@@ -189,18 +209,42 @@
   margin: 20px auto;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  
+  /* Matches the card's initial subtle border and deep shadow */
+  border: 1px solid rgba(255, 255, 255, 0.05); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); 
   
   /* Initial load animation state */
   opacity: 0;
   transform: rotateX(-90deg);
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  
+  /* 
+    Crucial fix: Transitions matched exactly to the card's properties.
+    Shadow matches card (1s), border matches card (1.2s), 
+    while keeping your 3D rotate transition snappy.
+  */
+  transition: 
+    transform 0.4s ease,
+    opacity 0.6s ease,
+    box-shadow 1s ease,
+    border-color 1.2s ease;
 }
 
 .project-card.visible .project-slider {
   opacity: 1;
   transform: rotateX(0);
-  transition-delay: 0.5s;
+  /* Light up with a faint crimson hue at the same time as the card */
+  border: 1px solid rgba(229, 57, 53, 0.15); 
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(229, 57, 53, 0.05);
+  
+  /* Kept a small initial delay for the entrance, but you can change to 0.2s to match the card exactly */
+  transition-delay: 0.2s; 
+}
+
+.project-card.visible:hover .project-slider {
+  /* Sharp, clean crimson border and intense glow matched to the card hover */
+  border-color: rgba(229, 57, 53, 0.8); 
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(229, 57, 53, 0.15);
 }
 
 .slider-track {
@@ -212,12 +256,13 @@
 /* The actual images inside the slider */
 .slider-track .image {
   width: 100%;
-  flex-shrink: 0; /* Prevents images from squishing */
+  flex-shrink: 0; 
   object-fit: cover;
   border-radius: 12px;
   cursor: pointer;
-  margin: 0; /* Resets old margin */
+  margin: 0;
 }
+
 
 /* Slider Navigation Buttons */
 .slider-btn {
@@ -234,7 +279,7 @@
   cursor: pointer;
   z-index: 10;
   display: flex;
-  justify-content: center;
+  justify-content:center;
   align-items: center;
   font-size: 14px;
   transition: 0.3s ease-in-out;
@@ -244,8 +289,74 @@
   background: #E53935;
   border-color: #E53935;
   box-shadow: 0 0 15px rgba(229, 57, 53, 0.5);
-  transform: translateY(-50%) scale(1.1);
 }
 
 .slider-btn.prev { left: 10px; }
 .slider-btn.next { right: 10px; }
+
+/* ===============================
+   Project Completeness Progress Bar
+=============================== */
+.project-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 450px;
+  margin-top: 3vh;
+  
+  /* Matches your existing header staggered load animations */
+  opacity: 0;
+  transform: rotateX(-90deg);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Staggered entry timing: appears right after the 'Description' label */
+.project-card.visible .project-progress {
+  opacity: 1;
+  transform: rotateX(0);
+  transition-delay: 0.5s; 
+}
+
+.progress-label {
+  color: #B2B5B9; /* Soft silver matching your paragraphs */
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+}
+
+.progress-bar-wrapper {
+  flex-grow: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0; /* Starts at 0 for the script animation */
+  background: linear-gradient(90deg, #b71c1c, #E53935); /* Elegant dark-to-vibrant crimson gradient */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(229, 57, 53, 0.3);
+  transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Intensify the bar glow when hovering over the card */
+.project-card.visible:hover .progress-bar-fill {
+  box-shadow: 0 0 15px rgba(229, 57, 53, 0.6);
+  filter: brightness(1.1);
+}
+
+.progress-value {
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-width: 35px;
+  text-align: right;
+  letter-spacing: 0.5px;
+}

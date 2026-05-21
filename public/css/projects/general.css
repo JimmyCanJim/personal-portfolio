@@ -59,4 +59,32 @@ main {
     width: 100%;
     padding: 10px;
   }
+
+  .projects {
+    /* 
+      Changes momentum scrolling from 'touch' (hyper-fast/slippery) 
+      to 'auto' which relies on standard, heavier native physics.
+    */
+    -webkit-overflow-scrolling: auto; 
+    
+    /* 
+      Changes the strictness of the snap behavior. 
+      'proximity' means it only snaps if the user gets close to the card, 
+      stopping a single flick from flying past 3 cards at once.
+    */
+    scroll-snap-type: y proximity;
+    
+    /* Adds internal padding adjustments to buffer the scroll velocity */
+    padding: 15vh 0;
+    gap: 3vh;
+  }
+
+  .project-card {
+    /* 
+      Ensures that even with proximity snapping, 
+      the card grabs focus cleanly without a jarring jump.
+    */
+    scroll-snap-align: center;
+    scroll-snap-stop: always; /* Forces the browser to stop at this card instead of skipping it */
+  }
 }
