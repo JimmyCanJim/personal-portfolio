@@ -9,7 +9,6 @@
     "preview": "vite preview",
     "start": "npm run dev"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JimmyCanJim/personal-portfolio.git"
@@ -23,5 +22,8 @@
   "homepage": "https://github.com/JimmyCanJim/personal-portfolio#readme",
   "devDependencies": {
     "vite": "^8.0.13"
+  },
+  "dependencies": {
+    "firebase": "^12.15.0"
   }
 }
