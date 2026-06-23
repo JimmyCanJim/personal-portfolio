@@ -4,6 +4,7 @@ export default defineConfig({
   root: 'public',
   build: {
     outDir: '../dist', 
-    emptyOutDir: true // This tells Vite it is safe to clear the old files
+    emptyOutDir: true,
+    rollupOptions: {input:{main: 'public/index.html', about: 'public/about.html', projects: 'public/projects.html'}}
   }
 });
