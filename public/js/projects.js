@@ -1,7 +1,59 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const cards = document.querySelectorAll('.project-card');
+// 1. Simplified Vite JSON import (No 'assert' needed)
+import projects from '../data/projects.json';
 
-    /* 1. Intersection Observer for Scroll Animations */
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById('projects-container');
+
+  try {
+    // Map through the data and generate HTML
+    const projectsHTML = projects.map(project => `
+      <div class="project-card">
+        <h2>${project.title}</h2>
+        <h3>Description</h3>
+        <p>${project.description}</p>
+        
+        <div class="project-slider">
+          <button class="slider-btn prev">❮</button>
+          <div class="slider-track">
+            ${project.images.map(img => `<img src="${img}" alt="${project.title}" class="image">`).join('')}
+          </div>
+          <button class="slider-btn next">❯</button>
+        </div>
+
+        <div class="project-progress">
+          <span class="progress-label">Completeness</span>
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar-fill" data-percentage="${project.completeness}%"></div>
+          </div>
+          <span class="progress-value">${project.completeness}%</span>
+        </div>
+
+        <a href="${project.githubLink}" target="_blank" class="icon">
+          <img src="assets/icons/github.png" alt="GitHub Icon" class="icon-image">
+        </a>
+      </div>
+    `).join('');
+
+    // Inject into the DOM
+    container.innerHTML = projectsHTML;
+
+    // IMPORTANT: Initialize all interactive features NOW that the cards exist
+    initializeScrollObserver();
+    initializeSliders();
+    initializeLightbox();
+    animateProgressBars();
+
+  } catch (error) {
+    console.error("Error loading projects:", error);
+    container.innerHTML = "<p>Failed to load projects. Please try again later.</p>";
+  }
+});
+
+// --- HELPER FUNCTIONS ---
+
+// 1. Animates cards sliding into view as you scroll down
+const initializeScrollObserver = () => {
+    const cards = document.querySelectorAll('.project-card');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -11,8 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.2 });
 
     cards.forEach(card => observer.observe(card));
+};
 
-    /* 2. Image Sliders Logic */
+// 2. Handles the left/right arrows on the images
+const initializeSliders = () => {
     const sliders = document.querySelectorAll('.project-slider');
     
     sliders.forEach(slider => {
@@ -22,20 +76,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const nextBtn = slider.querySelector('.next');
         let currentIndex = 0;
 
-        // If there's only 1 image, hide the navigation arrows
         if (images.length <= 1) {
             if (prevBtn) prevBtn.style.display = 'none';
             if (nextBtn) nextBtn.style.display = 'none';
-            return; // Stop running slider logic for this card
+            return; 
         }
 
         const updateSlider = () => {
-            // Moves the track left by 100% of the image width per index
             track.style.transform = `translateX(-${currentIndex * 100}%)`;
         };
 
         nextBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevents clicking the arrow from triggering the lightbox
+            e.stopPropagation(); 
             currentIndex = (currentIndex + 1) % images.length;
             updateSlider();
         });
@@ -46,19 +98,18 @@ document.addEventListener("DOMContentLoaded", () => {
             updateSlider();
         });
     });
+};
 
-    /* 3. Lightbox Setup */
+// 3. Handles clicking an image to view it fullscreen
+const initializeLightbox = () => {
     const backdrop = document.createElement('div');
     backdrop.className = 'lightbox-backdrop';
-
     const fullImg = document.createElement('img');
     fullImg.className = 'lightbox-image';
-
+    
     backdrop.appendChild(fullImg);
     document.body.appendChild(backdrop);
 
-    /* 4. Lightbox Click Logic */
-    // Now attaches to ALL images inside the sliders
     const allProjectImages = document.querySelectorAll('.project-slider .image');
     
     allProjectImages.forEach(img => {
@@ -70,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* 5. Close Lightbox Logic */
     const closeLightbox = () => {
         backdrop.classList.remove('active');
         fullImg.classList.remove('active');
@@ -81,40 +131,31 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") closeLightbox();
     });
-
-
-});
-
-// Function to animate progress bars when card becomes visible
-const animateProgressBars = () => {
-  const observerOptions = {
-    root: null, // monitors the viewport
-    threshold: 0.2 // fires when 20% of the card is visible
-  };
-
-  const progressObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Find the progress bar fill inside this specific card
-        const progressBarFill = entry.target.querySelector('.progress-bar-fill');
-        if (progressBarFill) {
-          const targetPercentage = progressBarFill.getAttribute('data-percentage');
-          // Apply the width with a slight delay to match your stagger entry
-          setTimeout(() => {
-            progressBarFill.style.width = targetPercentage;
-          }, 500); 
-        }
-        // Once animated, stop observing this card
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  // Attach the observer to all project cards
-  document.querySelectorAll('.project-card').forEach(card => {
-    progressObserver.observe(card);
-  });
 };
 
-// Initialize once the DOM content is fully loaded
-document.addEventListener('DOMContentLoaded', animateProgressBars);
+// 4. Animates the width of the progress bars
+const animateProgressBars = () => {
+    const observerOptions = {
+      root: null, 
+      threshold: 0.2 
+    };
+  
+    const progressObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const progressBarFill = entry.target.querySelector('.progress-bar-fill');
+          if (progressBarFill) {
+            const targetPercentage = progressBarFill.getAttribute('data-percentage');
+            setTimeout(() => {
+              progressBarFill.style.width = targetPercentage;
+            }, 500); 
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+  
+    document.querySelectorAll('.project-card').forEach(card => {
+      progressObserver.observe(card);
+    });
+};

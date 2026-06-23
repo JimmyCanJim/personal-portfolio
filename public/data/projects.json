@@ -1,0 +1,79 @@
+[
+  {
+    "id": "spam-detection",
+    "title": "Pure Python Spam Detection Engine",
+    "description": "This is a spam-detection built from scratch using no external machine learning libraries. It implements statistical probability formulas and algorithms to classify text as spam or not spam. The engine is trained on a dataset of labeled emails, where it learns to identify patterns and features that are indicative of spam. It uses techniques such as tokenization, feature extraction, and probability calculations to make predictions. The model is designed to be efficient and accurate, providing a reliable solution for spam detection without relying on pre-built machine learning frameworks.",
+    "images": [
+      "src/assets/images/project-images/spam/1.png",
+      "src/assets/images/project-images/spam/2.png",
+      "src/assets/images/project-images/spam/3.png"
+    ],
+    "completeness": 100,
+    "githubLink": "https://github.com/JimmyCanJim/spam-detection-ML"
+  },
+
+  {
+    "id": "personal-portfolio",
+    "title": "Personal Portfolio",
+    "description": "This is a fully responsive personal portfolio website built using HTML5, CSS3, and JavaScript. The portfolio serves as a dynamic platform that highlights my growth, skills, and development journey as an aspiring Software Developer and Data Engineer. It features a modern, clean user interface with smooth animations, interactive components, and responsive layouts. This project reflects not only my technical ability, but also my attention to UI/UX design, performance optimization, and structured front-end architecture.",
+    "images": [
+      "src/assets/images/project-images/portfolio/1.png",
+      "src/assets/images/project-images/portfolio/2.png",
+      "src/assets/images/project-images/portfolio/3.png"
+    ],
+    "completeness": 0,
+    "githubLink": "https://github.com/JimmyCanJim/personal-portfolio"
+  },
+
+  {
+    "id": "machine-learning-math",
+    "title": "Machine Learning Math Exercices",
+    "description": "I am currently mastering the mathematical foundations of Machine Learning using Python. I am systematically working through Linear Algebra—focusing on vectors, matrix transformations, and dimensionality reduction—and plan to advance into Multivariable Calculus to understand optimization algorithms like gradient descent. Following that, I will tackle Probability and Statistics to master data distributions and predictive modeling. Together, this mathematical triad forms the core pillars required to build, optimize, and truly understand machine learning algorithms from scratch.",
+    "images": [
+      "src/assets/images/project-images/ml-math-algebra/1.png",
+      "src/assets/images/project-images/ml-math-algebra/2.png",
+      "src/assets/images/project-images/ml-math-algebra/3.png"
+    ],
+    "completeness": 100,
+    "githubLink": "https://github.com/JimmyCanJim/ml-math"
+  },
+
+  {
+    "id": "speech-recognition-engine",
+    "title": "Speech Recognition Engine Model",
+    "description": "The Speech Recognition Engine (SRE) is a high-performance, local inference module designed to convert raw audio waveforms into text in real-time. Unlike generic off-the-shelf solutions, this engine utilizes a custom-built Transformer architecture with Residual Vector Quantization (RVQ) and CTC Decoding to ensure low-latency, 'snappy' predictions. The model is built to train off of common South-African languages, including English.",
+    "images": [
+      "src/assets/images/project-images/speech-recognition/1.png",
+      "src/assets/images/project-images/speech-recognition/2.png",
+      "src/assets/images/project-images/speech-recognition/3.png"
+    ],
+    "completeness": 70,
+    "githubLink": "https://github.com/JimmyCanJim/speech-recognition-engine"
+  },
+
+  {
+    "id": "password-manager-ouma",
+    "title": "Password Manager (Personal Vault)",
+    "description": "The Password Manager (Vault) is a secure, local solution for storing and managing passwords. It utilizes advanced encryption techniques to ensure that your sensitive information remains protected at all times. The application features a user-friendly interface, making it easy to organize and access your passwords with ease.",
+    "images": [
+      "src/assets/images/project-images/password-vault/1.png",
+      "src/assets/images/project-images/password-vault/2.png",
+      "src/assets/images/project-images/password-vault/3.png"
+    ],
+    "completeness": 90,
+    "githubLink": "https://github.com/JimmyCanJim/password_vault"
+  },
+
+  {
+    "id": "claimgen",
+    "title": "ClaimGen (Insurance Assessor Application)",
+    "description": "ClaimGen is a full-stack, enterprise-grade claims management platform built specifically for insurance assessors dealing with fire and flood restoration. It streamlines the entire valuation process by combining secure assessor workflows with live market data. Instead of manually researching replacement costs and building spreadsheets, assessors can use the built-in live retail search engine to instantly pull current market prices and automatically generate formal, client-ready Settlement Estimates and Visual Annexures.",
+    "images": [
+      "src/assets/images/project-images/claimgen/1.png",
+      "src/assets/images/project-images/claimgen/2.png",
+      "src/assets/images/project-images/claimgen/3.png"
+    ],
+    "completeness": 85,
+    "githubLink": "https://github.com/JimmyCanJim/ClaimGen"
+  }
+]
